@@ -27,7 +27,7 @@
             padding: 20px 0;
         }
 
-        /* ----- دخالـة الدخان والأحمر (Smoke & Red Storm Intro) ----- */
+        /* ----- دخلة الدخان الأحمر والغرافيك المرعب ----- */
         #intro-screen {
             position: fixed;
             top: 0;
@@ -44,19 +44,19 @@
             animation: fadeOutIntro 0.6s ease-out 2.8s forwards;
         }
 
-        /* تأثير الدخان السريع */
+        /* تأثير غيوم الدخان الأحمر الغامق */
         .smoke-overlay {
             position: absolute;
             width: 250%;
             height: 250%;
-            background: radial-gradient(circle, rgba(235, 20, 45, 0.4) 0%, rgba(10, 0, 2, 0.95) 70%);
-            filter: blur(50px);
+            background: radial-gradient(circle, rgba(180, 0, 25, 0.45) 0%, rgba(10, 0, 2, 0.98) 65%);
+            filter: blur(40px);
             animation: smokeMove 2.5s ease-in-out infinite alternate;
         }
 
         @keyframes smokeMove {
-            0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
-            100% { transform: scale(1.3) rotate(15deg); opacity: 0.9; }
+            0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            100% { transform: scale(1.25) rotate(10deg); opacity: 0.95; }
         }
 
         /* فلاش الرعد الأحمر */
@@ -78,7 +78,7 @@
             100% { opacity: 0; }
         }
 
-        /* كلمة SELVADOR بستايل الجروح والدمخاش (Scratch / Wounded Text) */
+        /* كلمة SELVADOR بستايل مرعب باللون الأحمر الدموي */
         .wounded-title {
             position: relative;
             z-index: 10001;
@@ -88,15 +88,14 @@
             text-transform: uppercase;
             letter-spacing: 6px;
             text-shadow: 
-                0 0 10px #ff002b,
-                0 0 20px #ff002b,
+                0 0 12px #ff002b,
+                0 0 25px rgba(255, 0, 43, 0.8),
                 2px 2px 0px #000,
-                -2px -2px 0px #500;
+                -2px -2px 0px #400;
             animation: textScratched 2.5s ease-in-out forwards;
             user-select: none;
         }
 
-        /* تأثير تشقق وجروح الكلمة */
         @keyframes textScratched {
             0% {
                 opacity: 0;
