@@ -44,12 +44,11 @@
             animation: fadeOutIntro 0.6s ease-out 2.8s forwards;
         }
 
-        /* تأثير غيوم الدخان الأحمر الغامق */
         .smoke-overlay {
             position: absolute;
             width: 250%;
             height: 250%;
-            background: radial-gradient(circle, rgba(180, 0, 25, 0.45) 0%, rgba(10, 0, 2, 0.98) 65%);
+            background: radial-gradient(circle, rgba(180, 0, 25, 0.4) 0%, rgba(10, 0, 2, 0.98) 65%);
             filter: blur(40px);
             animation: smokeMove 2.5s ease-in-out infinite alternate;
         }
@@ -59,7 +58,6 @@
             100% { transform: scale(1.25) rotate(10deg); opacity: 0.95; }
         }
 
-        /* فلاش الرعد الأحمر */
         .red-flash {
             position: absolute;
             inset: 0;
@@ -70,54 +68,49 @@
 
         @keyframes flashStrike {
             0% { opacity: 0; }
-            10% { opacity: 0.85; }
+            10% { opacity: 0.5; }
             15% { opacity: 0.1; }
-            25% { opacity: 0.95; }
+            25% { opacity: 0.6; }
             35% { opacity: 0.2; }
-            60% { opacity: 0.7; }
+            60% { opacity: 0.4; }
             100% { opacity: 0; }
         }
 
-        /* كلمة SELVADOR بستايل مرعب باللون الأحمر الدموي */
+        /* كلمة SELVADOR واضحة وبدون blur زايد */
         .wounded-title {
             position: relative;
             z-index: 10001;
             font-family: 'Creepster', cursive, 'Cinzel', serif;
-            font-size: 58px;
+            font-size: 48px;
             color: #ff1a3c;
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             text-shadow: 
-                0 0 12px #ff002b,
-                0 0 25px rgba(255, 0, 43, 0.8),
-                2px 2px 0px #000,
-                -2px -2px 0px #400;
+                0 0 8px rgba(255, 0, 43, 0.8),
+                2px 2px 4px #000000;
             animation: textScratched 2.5s ease-in-out forwards;
             user-select: none;
+            white-space: nowrap;
         }
 
         @keyframes textScratched {
             0% {
                 opacity: 0;
-                transform: scale(0.6) translateY(30px);
-                filter: blur(12px) contrast(200%);
+                transform: scale(0.8) translateY(20px);
             }
             20% {
                 opacity: 1;
-                transform: scale(1.1) translateY(0);
-                filter: blur(0px) contrast(150%);
+                transform: scale(1.05) translateY(0);
             }
             30% { transform: scale(0.98) rotate(-2deg); }
             40% { transform: scale(1.02) rotate(2deg); }
             80% {
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
-                filter: blur(0px);
             }
             100% {
                 opacity: 0;
-                transform: scale(1.2);
-                filter: blur(15px);
+                transform: scale(1.1);
             }
         }
 
@@ -128,7 +121,6 @@
             }
         }
 
-        /* الثلج في أعلى طبقة */
         #snowCanvas {
             position: fixed;
             top: 0;
@@ -139,7 +131,6 @@
             z-index: 999;
         }
 
-        /* أنيميشن ظهور الواجهة الرئيسية */
         @keyframes entranceEffect {
             0% {
                 opacity: 0;
