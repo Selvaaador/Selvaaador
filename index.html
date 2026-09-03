@@ -3,58 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selvaaador</title>
+    <title>CONTACT INFO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Creepster&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(135deg, #1a0507, #3b0d13, #120204);
+            background: radial-gradient(circle at center, #1f0306 0%, #030001 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            position: relative;
+            overflow-x: hidden;
+            padding: 20px 0;
         }
 
-        #snowCanvas {
+        /* ----- دخالـة الدخان والأحمر (Smoke & Red Storm Intro) ----- */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            overflow: hidden;
+            animation: fadeOutIntro 0.6s ease-out 2.8s forwards;
+        }
+
+        /* تأثير الدخان السريع */
+        .smoke-overlay {
             position: absolute;
+            width: 250%;
+            height: 250%;
+            background: radial-gradient(circle, rgba(235, 20, 45, 0.4) 0%, rgba(10, 0, 2, 0.95) 70%);
+            filter: blur(50px);
+            animation: smokeMove 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes smokeMove {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+            100% { transform: scale(1.3) rotate(15deg); opacity: 0.9; }
+        }
+
+        /* فلاش الرعد الأحمر */
+        .red-flash {
+            position: absolute;
+            inset: 0;
+            background: #ff002b;
+            opacity: 0;
+            animation: flashStrike 2.5s ease-in-out forwards;
+        }
+
+        @keyframes flashStrike {
+            0% { opacity: 0; }
+            10% { opacity: 0.85; }
+            15% { opacity: 0.1; }
+            25% { opacity: 0.95; }
+            35% { opacity: 0.2; }
+            60% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+
+        /* كلمة SELVADOR بستايل الجروح والدمخاش (Scratch / Wounded Text) */
+        .wounded-title {
+            position: relative;
+            z-index: 10001;
+            font-family: 'Creepster', cursive, 'Cinzel', serif;
+            font-size: 58px;
+            color: #ff1a3c;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            text-shadow: 
+                0 0 10px #ff002b,
+                0 0 20px #ff002b,
+                2px 2px 0px #000,
+                -2px -2px 0px #500;
+            animation: textScratched 2.5s ease-in-out forwards;
+            user-select: none;
+        }
+
+        /* تأثير تشقق وجروح الكلمة */
+        @keyframes textScratched {
+            0% {
+                opacity: 0;
+                transform: scale(0.6) translateY(30px);
+                filter: blur(12px) contrast(200%);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1.1) translateY(0);
+                filter: blur(0px) contrast(150%);
+            }
+            30% { transform: scale(0.98) rotate(-2deg); }
+            40% { transform: scale(1.02) rotate(2deg); }
+            80% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.2);
+                filter: blur(15px);
+            }
+        }
+
+        @keyframes fadeOutIntro {
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* الثلج في أعلى طبقة */
+        #snowCanvas {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 999;
         }
 
-        .glass-card {
+        /* أنيميشن ظهور الواجهة الرئيسية */
+        @keyframes entranceEffect {
+            0% {
+                opacity: 0;
+                transform: translateY(35px) scale(0.94);
+                filter: blur(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .container {
             position: relative;
             z-index: 2;
-            width: 88%;
-            max-width: 380px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 30px;
-            padding: 30px 20px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
-                        inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 32px;
+            padding: 35px 22px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.12);
             text-align: center;
+            opacity: 0;
+            animation: entranceEffect 1s cubic-bezier(0.16, 1, 0.3, 1) 2.7s forwards;
         }
 
-        .profile-title {
+        h1 {
+            font-family: 'Cinzel', serif;
             color: #ffffff;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
         .links-container {
@@ -63,83 +192,166 @@
             gap: 14px;
         }
 
-        .link-item {
+        .glass-card {
             display: flex;
             align-items: center;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-decoration: none;
-            color: #fff;
-            transition: all 0.3s ease;
+            width: 100%;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.015);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 22px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: entranceEffect 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .link-item:active {
-            transform: scale(0.97);
-            background: rgba(255, 255, 255, 0.15);
+        .glass-card:nth-child(1) { animation-delay: 2.85s; }
+        .glass-card:nth-child(2) { animation-delay: 2.95s; }
+        .glass-card:nth-child(3) { animation-delay: 3.05s; }
+        .glass-card:nth-child(4) { animation-delay: 3.15s; }
+        .glass-card:nth-child(5) { animation-delay: 3.25s; }
+        .glass-card:nth-child(6) { animation-delay: 3.35s; }
+
+        .glass-card:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .app-icon {
-            width: 36px;
-            height: 36px;
-            margin-right: 15px;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        .icon-box {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 16px;
         }
 
-        .link-text {
+        .icon-box svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 1.8;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6))
+                    drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.9));
+        }
+
+        .text-box {
             display: flex;
             flex-direction: column;
-            text-align: left;
+            align-items: flex-start;
         }
 
         .app-name {
-            font-size: 15px;
-            font-weight: 600;
             color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .username {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 12.5px;
+            font-weight: 600;
             margin-top: 2px;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
 <body>
 
+    <div id="intro-screen">
+        <div class="smoke-overlay"></div>
+        <div class="red-flash"></div>
+        <div class="wounded-title">SELVADOR</div>
+    </div>
+
     <canvas id="snowCanvas"></canvas>
 
-    <div class="glass-card">
-        <h1 class="profile-title">SELVADOR</h1>
+    <div class="container">
+        <h1>CONTACT INFO</h1>
 
         <div class="links-container">
-            <!-- TikTok -->
-            <a href="https://www.tiktok.com" target="_blank" class="link-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="app-icon" alt="TikTok">
-                <div class="link-text">
+            <a href="https://www.tiktok.com/@selvaaador?_r=1&_t=ZS-99QMjYUQaIP" target="_blank" class="glass-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="text-box">
                     <span class="app-name">TikTok</span>
-                    <span class="username">@tiktok_handle</span>
+                    <span class="username">@selvaaador</span>
                 </div>
             </a>
 
-            <!-- Discord -->
-            <a href="https://discord.com" target="_blank" class="link-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" class="app-icon" alt="Discord">
-                <div class="link-text">
+            <a href="https://www.instagram.com/selvaaaaaador?igsi=MWU0ejR3ZjNsYXo2dg%3D%3D&utm_source=qr" target="_blank" class="glass-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                </div>
+                <div class="text-box">
+                    <span class="app-name">Instagram</span>
+                    <span class="username">@selvaaaaaador</span>
+                </div>
+            </a>
+
+            <a href="https://t.me/Xcygn" target="_blank" class="glass-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </div>
+                <div class="text-box">
+                    <span class="app-name">Telegram</span>
+                    <span class="username">@Xcygn</span>
+                </div>
+            </a>
+
+            <a href="https://www.roblox.com/search/users?keyword=Havenothingforu" target="_blank" class="glass-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="3" transform="rotate(12 12 12)"/>
+                        <rect x="9.5" y="9.5" width="5" height="5" rx="1" transform="rotate(12 12 12)"/>
+                    </svg>
+                </div>
+                <div class="text-box">
+                    <span class="app-name">Roblox</span>
+                    <span class="username">@Havenothingforu</span>
+                </div>
+            </a>
+
+            <a href="https://discord.gg/kPuWWeJu" target="_blank" class="glass-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18.82 5.2a14.7 14.7 0 0 0-3.63-1.12.07.07 0 0 0-.07.03c-.16.28-.34.66-.46.96a13.52 13.52 0 0 0-4.08 0 9.7 9.7 0 0 0-.47-.96.07.07 0 0 0-.07-.03 14.65 14.65 0 0 0-3.63 1.12.06.06 0 0 0-.03.02C3.89 9 3.16 12.68 3.52 16.3a.07.07 0 0 0 .03.05 14.76 14.76 0 0 0 4.45 2.25.07.07 0 0 0 .08-.02c.34-.47.65-.97.91-1.49a.07.07 0 0 0-.04-.09 9.7 9.7 0 0 1-1.38-.66.07.07 0 0 1-.01-.11c.09-.07.18-.14.27-.22a.07.07 0 0 1 .07-.01c2.92 1.33 6.08 1.33 8.97 0a.07.07 0 0 1 .07.01c.09.08.18.15.27.22a.07.07 0 0 1-.01.11 9.25 9.25 0 0 1-1.38.66.07.07 0 0 0-.04.09c.27.52.57 1.02.91 1.49a.07.07 0 0 0 .08.02 14.72 14.72 0 0 0 4.45-2.25.07.07 0 0 0 .03-.05c.42-4.18-.7-7.82-2.95-11.08a.06.06 0 0 0-.03-.02zM8.52 13.78c-1.02 0-1.85-.94-1.85-2.09 0-1.16.81-2.1 1.85-2.1 1.05 0 1.87.95 1.85 2.1 0 1.15-.81 2.09-1.85 2.09zm6.96 0c-1.02 0-1.85-.94-1.85-2.09 0-1.16.82-2.1 1.85-2.1 1.05 0 1.87.95 1.85 2.1 0 1.15-.8 2.09-1.85 2.09z"/>
+                    </svg>
+                </div>
+                <div class="text-box">
                     <span class="app-name">Discord</span>
                     <span class="username">selvaaador</span>
                 </div>
             </a>
 
-            <!-- Roblox -->
-            <a href="https://www.roblox.com" target="_blank" class="link-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3670/3670321.png" class="app-icon" alt="Roblox">
-                <div class="link-text">
-                    <span class="app-name">Roblox</span>
-                    <span class="username">roblox_username</span>
+            <a href="https://x.com/selvaaaador?s=11" target="_blank" class="glass-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>
+                    </svg>
+                </div>
+                <div class="text-box">
+                    <span class="app-name">X (Twitter)</span>
+                    <span class="username">@selvaaaador</span>
                 </div>
             </a>
         </div>
@@ -156,30 +368,43 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const particles = Array.from({ length: 70 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2.5 + 1,
-            speed: Math.random() * 1.2 + 0.4,
-            opacity: Math.random() * 0.7 + 0.3
-        }));
+        const particles = [];
+        const particleCount = 85;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2.2 + 0.8,
+                speedY: Math.random() * 0.9 + 0.35,
+                speedX: Math.random() * 0.4 - 0.2,
+                opacity: Math.random() * 0.65 + 0.25
+            });
+        }
 
         function drawSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
+            
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(235, 70, 70, ${p.opacity})`;
+                ctx.fillStyle = `rgba(225, 45, 55, ${p.opacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = 'rgba(225, 45, 55, 0.85)';
                 ctx.fill();
 
-                p.y += p.speed;
+                p.y += p.speedY;
+                p.x += p.speedX;
+
                 if (p.y > canvas.height) {
                     p.y = -5;
                     p.x = Math.random() * canvas.width;
                 }
-            });
+            }
             requestAnimationFrame(drawSnow);
         }
+
         drawSnow();
     </script>
 </body>
